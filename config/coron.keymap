@@ -115,7 +115,7 @@
             bindings = <
 &trans  &trans  &trans          &msc SCRL_UP    &trans           &trans  &trans  &trans  &trans     &trans    &trans    &trans
 &trans  &trans  &msc SCRL_LEFT  &msc SCRL_DOWN  &msc SCRL_RIGHT  &trans  &trans  &trans  &kp RG(T)  &mkp MB1  &mkp MB2  &trans  &trans  &trans
-&trans  &trans  &trans          &trans          &trans           &trans  &trans  &trans  &trans     &mkp MB4  &mkp MB5  &tog 0  &trans  &trans
+&trans  &trans  &trans          &trans          &trans           &trans  &trans  &trans  &kp RG(A)  &mkp MB4  &mkp MB5  &trans  &trans  &trans
 &trans  &trans  &trans          &trans          &trans           &trans  &trans  &trans  &trans     &trans    &trans
             >;
 
