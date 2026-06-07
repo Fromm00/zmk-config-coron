@@ -67,11 +67,11 @@
             tapping-term-ms = <200>;
         };
 
-        // Figma用のズーム動作（Command + スクロール）を新しく定義
+        // 安全な標準定義（sensor-rotate）に戻し、確実にビルドを通します
         figma_zoom: figma_zoom {
-            compatible = "zmk,behavior-sensor-rotate-var";
+            compatible = "zmk,behavior-sensor-rotate";
             #sensor-binding-cells = <0>;
-            // 左回転（CCW）でCommand+下スクロール（縮小）、右回転（CW）でCommand+上スクロール（拡大）
+            // 左回転（CCW）で下スクロール、右回転（CW）で上スクロール
             bindings = <&msc SCRL_DOWN>, <&msc SCRL_UP>;
             tap-ms = <20>;
         };
@@ -88,7 +88,7 @@
 &lt 6 DEL       &kp LCTRL  &kp LEFT_ALT  &kp LEFT_COMMAND  &mt LEFT_COMMAND LANGUAGE_1  &lt 2 SPACE    &lt 4 EXCL  &lt 3 SLASH                &lt 1 LANGUAGE_2  &kp LEFT_BRACKET  &kp RIGHT_BRACKET
             >;
 
-            // ZMKの標準機能(inc_dec_kp)でLGUI(Command)の押しっぱなし状態を作り、定義したスクロール動作を連動させます
+            // 回転時にCommand(LGUI)の押しっぱなし状態を作り、定義したスクロール動作を連動させます
             sensor-bindings = <&inc_dec_kp LGUI LGUI>, <&figma_zoom>;
         };
 
@@ -131,7 +131,7 @@
 &trans  &trans  &trans          &trans          &trans           &trans  &trans  &trans  &trans     &trans    &trans
             >;
 
-            // MOUSEレイヤーでも同様にCommand付きズームが動作するように修正
+            // MOUSEレイヤーも同様にCommand付きズームに修正
             sensor-bindings = <&inc_dec_kp LGUI LGUI>, <&figma_zoom>;
         };
 
