@@ -19,7 +19,7 @@
     combos {
         compatible = "zmk,combos";
 
-        /* Note: Key positions have shifted due to added columns. 
+        /* Note: Key positions have shifted due to added columns.
            You will need to recalculate these indices later. */
 
         tab {
@@ -66,6 +66,15 @@
             #binding-cells = <2>;
             tapping-term-ms = <200>;
         };
+
+        // Figma用のズーム動作（Command + スクロール）を新しく定義
+        figma_zoom: figma_zoom {
+            compatible = "zmk,behavior-sensor-rotate-var";
+            #sensor-binding-cells = <0>;
+            // 左回転（CCW）でCommand+下スクロール（縮小）、右回転（CW）でCommand+上スクロール（拡大）
+            bindings = <&msc SCRL_DOWN>, <&msc SCRL_UP>;
+            tap-ms = <20>;
+        };
     };
 
     keymap {
@@ -79,7 +88,8 @@
 &lt 6 DEL       &kp LCTRL  &kp LEFT_ALT  &kp LEFT_COMMAND  &mt LEFT_COMMAND LANGUAGE_1  &lt 2 SPACE    &lt 4 EXCL  &lt 3 SLASH                &lt 1 LANGUAGE_2  &kp LEFT_BRACKET  &kp RIGHT_BRACKET
             >;
 
-            sensor-bindings = <&msc LG(SCRL_UP) LG(K_SCRL_DOWN)>;
+            // ZMKの標準機能(inc_dec_kp)でLGUI(Command)の押しっぱなし状態を作り、定義したスクロール動作を連動させます
+            sensor-bindings = <&inc_dec_kp LGUI LGUI>, <&figma_zoom>;
         };
 
         FUNCTION {
@@ -121,7 +131,8 @@
 &trans  &trans  &trans          &trans          &trans           &trans  &trans  &trans  &trans     &trans    &trans
             >;
 
-            sensor-bindings = <&msc LG(SCRL_UP) LG(K_SCRL_DOWN)>;
+            // MOUSEレイヤーでも同様にCommand付きズームが動作するように修正
+            sensor-bindings = <&inc_dec_kp LGUI LGUI>, <&figma_zoom>;
         };
 
         SCROLL {
