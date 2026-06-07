@@ -55,6 +55,24 @@
             bindings = <&to 0 &macro_param_1to1 &kp MACRO_PLACEHOLDER>;
             label = "TO_LAYER_0";
         };
+
+        // ダブルタップ判定を確実に回避するズームアウトマクロ
+        macro_zoom_out: macro_zoom_out {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            wait-ms = <10>;
+            tap-ms = <20>;
+            bindings = <&macro_press &kp LGUI>, <&macro_tap &kp MINUS>, <&macro_release &kp LGUI>;
+        };
+
+        // ダブルタップ判定を確実に回避するズームインマクロ
+        macro_zoom_in: macro_zoom_in {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            wait-ms = <10>;
+            tap-ms = <20>;
+            bindings = <&macro_press &kp LGUI>, <&macro_tap &kp EQUAL>, <&macro_release &kp LGUI>;
+        };
     };
 
     behaviors {
@@ -67,13 +85,13 @@
             tapping-term-ms = <200>;
         };
 
-        // 安全な標準定義（sensor-rotate）に戻し、確実にビルドを通します
+        // マクロをエンコーダーの回転動作としてバインド
         figma_zoom: figma_zoom {
             compatible = "zmk,behavior-sensor-rotate";
             #sensor-binding-cells = <0>;
-            // 左回転（CCW）で下スクロール、右回転（CW）で上スクロール
-            bindings = <&msc SCRL_DOWN>, <&msc SCRL_UP>;
-            tap-ms = <20>;
+            // 左回転（CCW）で縮、右回転（CW）で拡
+            bindings = <&macro_zoom_out>, <&macro_zoom_in>;
+            tap-ms = <10>;
         };
     };
 
@@ -88,8 +106,8 @@
 &lt 6 DEL       &kp LCTRL  &kp LEFT_ALT  &kp LEFT_COMMAND  &mt LEFT_COMMAND LANGUAGE_1  &lt 2 SPACE    &lt 4 EXCL  &lt 3 SLASH                &lt 1 LANGUAGE_2  &kp LEFT_BRACKET  &kp RIGHT_BRACKET
             >;
 
-            // 回転時にCommand(LGUI)の押しっぱなし状態を作り、定義したスクロール動作を連動させます
-            sensor-bindings = <&inc_dec_kp LGUI LGUI>, <&figma_zoom>;
+            // 新しいマクロによるズーム制御に変更（1つのエンコーダー用）
+            sensor-bindings = <&figma_zoom>;
         };
 
         FUNCTION {
@@ -131,8 +149,8 @@
 &trans  &trans  &trans          &trans          &trans           &trans  &trans  &trans  &trans     &trans    &trans
             >;
 
-            // MOUSEレイヤーも同様にCommand付きズームに修正
-            sensor-bindings = <&inc_dec_kp LGUI LGUI>, <&figma_zoom>;
+            // MOUSEレイヤーもマクロ動作に変更
+            sensor-bindings = <&figma_zoom>;
         };
 
         SCROLL {
