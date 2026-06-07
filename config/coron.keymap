@@ -89,6 +89,8 @@
 &trans  &trans                &kp LS(LG(N7))        &kp LS(LG(N8))     &kp LS(LG(N9))     &kp LC(UP_ARROW)  &trans  &trans  &kp F11  &kp F12  &trans  &trans  &trans   &trans
 &trans  &trans                &trans                &trans             &trans             &trans            &trans  &trans  &trans   &trans   &trans
             >;
+
+            sensor-bindings = <&inc_dec_kp C_VOLUME_UP C_VOLUME_DOWN>;
         };
 
         NUM {
